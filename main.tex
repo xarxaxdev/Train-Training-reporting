@@ -1,7 +1,8 @@
 \documentclass{beamer}
 %Information to be included in the title page:
-\title{Train-training: Malfunction work}
-\author{Felix  \& Guillem Gili i Bueno  }
+\title{Train-training}
+\subtitle{Malfunctions}
+\author{Felix  Kratzsch \& Guillem Gili i Bueno  }
 \institute{Potsdam University - Railway Scheudling }
 \date{2025}
 
@@ -9,25 +10,54 @@
 
 \frame{\titlepage}
 
-\begin{frame}
-\frametitle{Index }
-\begin{enumerate}
-	\item{Malfunctions: Particularities } 
-	\item{Environments } 
-	\item{Solutions } 
-	\item{Particularities } 
-\end{enumerate}
+\begin{frame}[label=toc]
+\frametitle{Table of Contents}
+\tableofcontents
 \end{frame} 
 
+
+\section{1 Changes during development}
+
 \begin{frame}
-	\frametitle{1.  Malfunctions particularities}
+	\frametitle{1  Malfunctions particularities}
 	ADD CODE PIC WITH SAVE/LOAD
 \begin{enumerate}
 	\item{As should be known, we can save/load, typically for saving train progress before a malfunction and initial problem clauses} 
 	\item{Implication: allows for benchmarking particular initial represenetations parts (eg. loading only edges, or the trackpart decoding)} 
 \end{enumerate}
-
 \end{frame}
 
+
+\section{2 Experimentation setup}
+
+
+\begin{frame}
+	\frametitle{2.1  Environments }
+	What base configurations are cool
+	\begin{enumerate}
+		\item{baseline} 
+		\item{train-dense} 
+	\end{enumerate}
+	
+\end{frame}
+\begin{frame}
+	\frametitle{2.2 Solutions }
+	What solutions implementations we want to evaluate
+	\begin{enumerate}
+		\item{Graph with directed vertex and edges} 
+		\item{Other} 
+	\end{enumerate}
+	
+\end{frame}
+
+
+\section{3 Results}
+
+
+\begin{frame}
+	\frametitle{3  Results}
+	Tabelle solutions X environments
+
+\end{frame}
 
 \end{document}

@@ -23,9 +23,14 @@
 	\frametitle{\thesection.\thesubsection   \secname : \subsecname}
 	
 	ADD CODE PIC WITH SAVE/LOAD
-\begin{enumerate}
+	
+	Maybe add a small schema  showing the happens over the timeline when malfunctions happen, e.g. How are we loading the at/3.
+	\begin{enumerate}
 	\item{As should be known, we can save/load, typically for saving train progress before a malfunction and initial problem clauses} 
-	\item{Implication: allows for benchmarking particular initial represenetations parts (eg. loading only edges, or the trackpart decoding)} 
+	\item{Implication: allows for benchmarking particular initial represenetations parts (eg. loading only edges, or the trackpart decoding)}
+	\item{Single argument both save/load: Intended to save full atoms, your solution does not have to necessarily use time T(although it is what makes the most sense). }
+	
+	 
 \end{enumerate}
 \end{frame}
 
@@ -47,7 +52,8 @@
 
 \begin{frame}
 	\frametitle{\thesection.\thesubsection   \secname : \subsecname}
-	What solutions implementations we want to evaluate
+	What solutions implementations we want to evaluate:
+	malfunction in 
 	\begin{enumerate}
 		\item{Graph with directed vertex and edges} 
 		\item{Other} 

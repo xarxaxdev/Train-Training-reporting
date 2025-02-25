@@ -5,14 +5,15 @@
 \author{Felix  Kratzsch \& Guillem Gili i Bueno  }
 \institute{Potsdam University - Railway Scheudling }
 \date{2025}
-
+\usetheme{Berlin}
+\usecolortheme{beaver}
 \begin{document}
 
 \frame{\titlepage}
 
 \begin{frame}[label=toc]
 \frametitle{Table of Contents}
-\tableofcontents
+\tableofcontents[]
 \end{frame} 
 
 
@@ -20,7 +21,7 @@
 \subsection{Save \& load}
 \begin{frame}
 	%\frametitle{1  Malfunctions particularities}
-	\frametitle{\thesection.\thesubsection   \secname : \subsecname}
+	\frametitle{Save \& load}
 	
 	ADD CODE PIC WITH SAVE/LOAD
 	
@@ -29,6 +30,7 @@
 	\item{As should be known, we can save/load, typically for saving train progress before a malfunction and initial problem clauses} 
 	\item{Implication: allows for benchmarking particular initial represenetations parts (eg. loading only edges, or the trackpart decoding), May help against lack of modularity in cligo}
 	\item{Single argument both save/load: Intended to save full atoms, your solution does not have to necessarily use time T(although it is what makes the most sense). }
+	\item{Same seeed does not generated the same map. }
 	
 	 
 \end{enumerate}
@@ -37,9 +39,8 @@
 
 \section{Experimentation setup}
 
-\subsection{Environments}
 \begin{frame}
-	\frametitle{\thesection.\thesubsection   \secname : \subsecname}
+	\frametitle{Environments}
 	What base configurations are cool
 	\begin{enumerate}
 		\item{baseline} 
@@ -48,10 +49,9 @@
 	
 \end{frame}
 
-\subsection{Solutions}
 
 \begin{frame}
-	\frametitle{\thesection.\thesubsection   \secname : \subsecname}
+	\frametitle{Solutions}
 	What solutions implementations we want to evaluate:
 	malfunction in the same file or not, etc 
 	\begin{enumerate}

@@ -1,5 +1,6 @@
 
 \section{Solutions}
+Every encoding below uses an estimate of the horizon as window for its computations, which is passed from the flatland environments.
 \color{green}
 \subsection{Definitions}
 To not reiterate the descriptions of the example files we are using for our properly-structured solution, I will be describing it here. While our solution is graph-based; it should be valid for other approaches. The respective files are:
@@ -18,25 +19,67 @@ To not reiterate the descriptions of the example files we are using for our prop
 \color{black}
 
 
-\subsection{Smart (vertex with directions) file partition}
-The basic concept is convert flatland instances into an abstract graph representation. The main difficulty lies therein, that in Flatland cells, are not the only thing constraining movement, but additionally a direction needs to either be tracked as additional information, or be merged into the graph. For this encoding we chose the second approach. To ensure a graph-like structure vertices are not defined by just the cell, but by the cell the train came from. This leads to a graph with directed edges and paths modelling the environment.
-\color{blue}
-\begin{itemize}
-	\item motivation
-	\item implementation
-	\begin{itemize}
-		\item short summary on graph structure
-		\item talk about split (whats primary, whats secondary)
-		\item extending the window (worst case assumption)
-	\end{itemize}
-	\item implications
-	\begin{itemize}
-		\item escalating window
-		\item bad scaling
-		\item quick with good estimates
-	\end{itemize}
-\end{itemize}
-\color{black}
+\subsection{Graph}
+\noindent \textbf{Motivation} The basic concept is convert flatland instances into an abstract graph representation. The main difficulty lies therein, that in Flatland cells, are not the only thing constraining movement, but additionally a direction needs to either be tracked as additional information, or be merged into the graph. For this encoding we chose the second approach. To ensure a graph-like structure vertices are not defined by just the cell, but by the cell the train came from. This leads to a graph with directed edges and paths modelling the environment. This approach serves as a baseline for comparison, and a foundation to build upon with the other encodings.\\
+
+\begin{figure}
+\begin{minipage}[t]{0.45\textwidth}
+    \centering
+	\begin{tikzpicture}
+		\draw[blue] (0,0.5) rectangle (1,1.5);
+		\draw (0.5,0.5) -- (0.5,1.5);
+		\draw (0.5,0.5) to[out=90,in=180] (1,1);
+	
+		\draw[blue] (3,1.5) rectangle (4,2.5);
+		\draw (3.5,1.5) -- (3.5,2.5);
+		\draw (3.5,1.5) to[out=90,in=180] (4,2);
+		\draw (3,0.5) rectangle (4,1.5);
+		\draw[-{Stealth},color=red,thick] (3.5,1.5) -- (3.5,1.7);
+	
+		\draw[blue] (4.5,0.5) rectangle (5.5,1.5);
+		\draw (5,0.5) -- (5,1.5);
+		\draw (5,0.5) to[out=90,in=180] (5.5,1);
+		\draw (4.5,1.5) rectangle (5.5,2.5);
+		\draw[-{Stealth},color=red,thick] (5,1.5) -- (5,1.3);
+	
+		\draw[blue] (6,0.5) rectangle (7,1.5);
+		\draw (6.5,0.5) -- (6.5,1.5);
+		\draw (6.5,0.5) to[out=90,in=180] (7,1);
+		\draw (7,0.5) rectangle (8,1.5);
+		\draw[-{Stealth},color=red,thick] (7,1) -- (6.8,1);
+	
+		\node at (0.2, 1.4) {At};
+		\node at (3.2, 2.4) {At};
+		\node at (4.7, 1.4) {At};
+		\node at (6.2, 1.4) {At};
+		\node at (3.35, 1.4) {Prev};
+		\node at (4.85, 2.4) {Prev};
+		\node at (7.35, 1.4) {Prev};
+	
+		\draw[->,thick] (1.5,1) -- (2.5,1);
+	\end{tikzpicture}
+    \caption{Cell to Graph}
+    \label{fig:graph}
+\end{minipage}
+\end{figure}
+
+\noindent \textbf{Implementation} To that end, the information from flatland is converted similar to Figure \ref{fig:graph}. The vertex predicates are \texttt{vertex(At,Prev)}, where \texttt{At} is the position of the train, and \texttt{Prev} is the previous position necessary to reach there. As the red arrows show, one could also replace \texttt{Prev} with the facing direction, when entering. Both contain the same information. Now, one cell is represented by up to 4 vertices. This is handled by introducing a predicate shared resources, to forbid conflicts.
+
+This approach is a rudimentary one, representing agents and their position, for every timestep. As many papers deal with Multi Agent Pathfinding Problems on ASP, I will not go into more detail here, but instead skip to the adaption of malfunctions. (More Info on Solving MAPF with ASP: \cite{MAPF})\\
+
+\noindent The secondary encoding handles malfunctions in three steps.
+
+\textit{Reconstruction} relies on the previous encoding passing the path and uses it together with the malfunction time, to reconstruct the current state. To that end, the plan is copied for all timesteps up to malfunction time. Except the malfunctioning trains and trains which collide with them. For those the last action fails and one less is copied.
+
+\textit{Persisting} computes how long a train malfunctions and derives persistent information which will never be violated even if another malfunction happens in the next timestep.
+
+\textit{Recompute} repeats the pathfinding computation with a shifted window. The window starts at the malfunction timesteps and exceeds the old window by the duration of the worst malfunction at the timestep. This assumes the worst case, as a malfunction for 5 timesteps, at worst requires 5 additional timesteps to solve the instance.\\
+
+\noindent \textbf{Implications} This might lead to an explosion of window size. If multiple trains, successively encounter a malfunction of 1 timestep, while not interfering with one another, they would still require one additional timestep to ensure solvability. Instead, this encoding would add as many timesteps as trains, complicating computation.
+
+As this encoding models the paths by timesteps it scales bad with bigger instances, leading to an explosion in grounding.
+
+Lastly, it might not be optimal but given a good guess for the horizon, it can compute a valid path without any optimality quickly.
 
 \subsection{Naive (vertex with directions) file partition}
 malfunctions + main

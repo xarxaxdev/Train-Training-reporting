@@ -57,13 +57,6 @@ A flatland simulation is run one step at a time, meaning that a train of the max
 \end{itemize}
 During the semester the `save/1`  and `load/1` atoms were added \cite{malfunction_branch}, so that the atoms from a previous solution that incurred into a malfunction were inherited into a new, recalculated solution. \color{green} They are single-argument (rather than something time-related, making it a 2-argument) to allow for more flexibility; this way one can store full atoms directly. This makes `primary` and `secondary` encondings in flatland now relevant to differentiate; one can now store the base-structure representation so it does not need to be recalculated. \color{black} \color{gray} I find this confusing. I would call the predicates unary and think flexibility as it stands here unexplained. Just confuses. I would just cut it like: They are unary predicates but due to Clingos nature can store unlimited complex structures. \color{black}
 
-\color{blue}
-\begin{itemize}
-	\item flatland and action saving and state machine problems
-	\item primary secondary?
-\end{itemize}
-\color{black}
-
 \section{Core malfunctions analysis / particularities}
 
 \color{green}
@@ -76,6 +69,13 @@ To not reiterate the descriptions of the example files we are using for our prop
 	\item  \textbf{malfunctions.lp} File that loads (selectively, according to the timestamp) and saves upon malfunction. Also where path implications from a malfunction should be deduced; with no choice rules.
 \end{itemize}
 \color{black} \color{gray} I would get rid of this. I think our structure is not important, as it adds nothing to the execution, for the order of lines does not matter. \color{black}
+\color{blue}
+\begin{itemize}
+	\item make small section for it
+	\item flatland and action saving and state machine problems
+\end{itemize}
+\color{black}
+
 
 \subsection{Implications on Encodings}
 \color{green}
@@ -97,12 +97,6 @@ As one may deduce from the different primary/secondary set of encodings, this me
 
 \subsection{Our interests}
 We found it likely that 2 approaches made sense:
-\color{green}
-\begin{itemize}
-	\item  \textbf{Evaluate for optimal solutions} Add a prioritize statement, that ensures trains arrive with as much free time as possible . After a malfunction, the pruned solutions are likely to be the suboptimal.(less efficiency, more resilience)
-	\item  \textbf{Evaluate for quick, scalable solutions} Do not do any prioritization; since the solution space is very big. Find solutions as they appear. This may seem naive, but in a real-world case scenario, where the horizon of actions can be infinite(and the time value span much bigger)  there is a good case for this to be a priority. (more (inmediated)efficiency, less resilience )
-\end{itemize}
-\color{black} \color{gray} We have as of now, no encoding dealing with optimality. But that and the possible implications, would be a nice sentence for a bullet point at the end. Also we never touched priority. I would suggest we put: \color{black}
 \color{green}
 \begin{itemize}
 	\item get running baseline 
@@ -127,55 +121,6 @@ We found it likely that 2 approaches made sense:
 	\end{itemize}
 \end{itemize}
 \color{black}
-
-WRITE LATER WHETHER WE CHECK OPTIMAL
-
-
-\section{Instances}
-\color{green} Would move it to a testing section right before evaluation \color{black}\\
-sparse\_0\_1 means sparse with 0\% malfunctions the first one.
-\color{blue}
-\begin{itemize}
-	\item would make it a testing section
-	\item explain instances (why how, ...)
-	\item explain benchmarking (how, why, ...)
-\end{itemize}
-\color{black}
-
-\subsection{Sparse instances}
-
-\begin{figure}	
-	\begin{minipage}{.41\textwidth}
-		\begin{subfigure}{\textwidth}
-			\centering
-			\includegraphics[width=0.48\textwidth]{dense/dense_0_1}
-			\caption{Dense instance, using a 24x24 grid, where 20 trains must travel across 3 cities.}
-			\label{dense_0_1}
-		\end{subfigure}
-	\hfill
-		\begin{subfigure}{\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{medium/medium_0_1}
-			\caption{Medium instance, using a 50x50 grid, where 10 trains must travel across 5 cities.}
-			\label{medium_0_1}
-		\end{subfigure}
-	\end{minipage}
-	\hfill
-	\begin{minipage}{.49\textwidth}
-				\begin{subfigure}{\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{sparse/sparse_0_1}
-		\caption{Sparse instance, using a 60x60 grid, where 6 trains must travel across 6 cities.}
-		\label{sparse_0_1}
-				\end{subfigure}
-	\end{minipage}
-	\caption{The 3 types of configurations used for our experimentation, put side-by-side in order to get an idea of the scale. The full list can be found at \cite{instance_folder}}
-	\label{sparse_medium_dense}
-\end{figure}
-
-\subsection{Medium instances}
-
-\subsection{Dense instances}
 
 
 \section{Solutions}
@@ -242,15 +187,74 @@ malfunctions + input+ path+output
 
 
 \section{Results}
+\section{Instances}
+\color{green} Would move it to a testing section right before evaluation \color{black}\\
+sparse\_0\_1 means sparse with 0\% malfunctions the first one.
 \color{blue}
 \begin{itemize}
-	\item check hypothesis from encodings
-	\item some overall stats (might do later)
+	\item would make it a testing section
+	\item explain instances (why how, ...)
+	\item explain benchmarking (how, why, ...)
 \end{itemize}
 \color{black}
 
+\subsection{Sparse instances}
+
+\begin{figure}	
+	\begin{minipage}{.41\textwidth}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=0.48\textwidth]{dense/dense_0_1}
+			\caption{Dense instance, using a 24x24 grid, where 20 trains must travel across 3 cities.}
+			\label{dense_0_1}
+		\end{subfigure}
+	\hfill
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{medium/medium_0_1}
+			\caption{Medium instance, using a 50x50 grid, where 10 trains must travel across 5 cities.}
+			\label{medium_0_1}
+		\end{subfigure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{.49\textwidth}
+				\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{sparse/sparse_0_1}
+		\caption{Sparse instance, using a 60x60 grid, where 6 trains must travel across 6 cities.}
+		\label{sparse_0_1}
+				\end{subfigure}
+	\end{minipage}
+	\caption{The 3 types of configurations used for our experimentation, put side-by-side in order to get an idea of the scale. The full list can be found at \cite{instance_folder}}
+	\label{sparse_medium_dense}
+\end{figure}
+
+\subsection{Medium instances}
+
+\subsection{Dense instances}
+
+
 
 \section{Conclusions}
+\color{blue}
+\begin{itemize}
+	\item check hypothesis from encodings
+	\item some overall stats (might do later) (space, time, ...)
+\end{itemize}
+\color{black}
+
+\color{green}
+\begin{itemize}
+	\item research options
+	\item optimality, priority, resilience (need for malfunction handling)
+\end{itemize}
+\color{black}
+\color{green}
+\begin{itemize}
+	\item  \textbf{Evaluate for optimal solutions} Add a prioritize statement, that ensures trains arrive with as much free time as possible . After a malfunction, the pruned solutions are likely to be the suboptimal.(less efficiency, more resilience)
+	\item  \textbf{Evaluate for quick, scalable solutions} Do not do any prioritization; since the solution space is very big. Find solutions as they appear. This may seem naive, but in a real-world case scenario, where the horizon of actions can be infinite(and the time value span much bigger)  there is a good case for this to be a priority. (more (inmediated)efficiency, less resilience )
+\end{itemize}
+\color{black}
 
 
 \section{Personal observations}

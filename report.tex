@@ -1,5 +1,7 @@
 \documentclass{llncs}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning} 
 
 \begin{document}
 \title{Train Scheduling and Malfunctions in ASP}
@@ -27,8 +29,9 @@
 \end{itemize}
 \section{Approaches}
 
+%TODO: Add Figure With transition
+The basic concept is, to get away from the flatland representation and instead compute the problem on a graph representation. The main difficulty lies therein, that in Flatland Cells, are not the only thing constraining movement, but additionally a direction needs to either be tracked as additional information, or be worked into the graph. For this encoding we chose the second approach. To ensure a graph-like structure vertices are not defined by just the cell, but by the cell the train came from. This leads to a graph with directed edges and paths modelling the environment.
 \color{blue}
-\subsection{Graph Abstract}
 \begin{itemize}
     \item motivation
     \item implementation

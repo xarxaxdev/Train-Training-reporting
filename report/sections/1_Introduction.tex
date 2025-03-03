@@ -1,0 +1,29 @@
+\section{Introduction to Flatland and Malfunction mechanics}
+
+\subsection{Flatland}
+Flatland\cite{flatland} is the framework this report researches on. To quote from the official repository:
+\begin{quote}
+\emph{	Flatland is a railway scheduling challenge hosted by AICrowd that seeks to solve the problem of multi-agent pathfinding for trains in large railway networks. Although approaches across all domains (e.g. reinforcement learning, operations research) are welcome, this repository focuses on integrating ASP-based solutions within the Flatland framework.}
+\end{quote}
+
+The simulation environment allows specific connections between different roads, different train speeds and for unexpected malfunctions. As the title of this report alludes to, we will be focusing on the more malfunction-adjacent implications, and measuring across various aspects that may be related to it.
+
+\color{green}
+\begin{itemize}
+	\item personal horizons as estimates
+	\item ignore horizons
+\end{itemize}
+\color{black}
+
+\subsection{Particularities of malfunctions}
+\color{green}
+\begin{itemize}
+	\item what are primary and secondary encodings? Are used later but a short explanation would be neat
+\end{itemize}
+\color{black}
+A flatland simulation is run one step at a time, meaning that a train of the max speed, 1, which is also the default, will advance to a the next cell in the direction it is facing. At run-time, a malfunction (or multiple) may happen at any point. A malfunction at time T, with duration D implies the train must wait during D turns (or if it is unspawned, it must remain that way), from turn T onward. To be very precise: the action performed in T-1 will be completed (so a change of coordinates may happen between T-1 and T) but the action that is started at T must be `wait`. This will turn valid solutions into invalid; and force trains to arrive later. This translates roughly to 2 things:
+\begin{itemize}
+	\item Figure out the commited atoms until the point where a malfunction happened.
+	\item Rerun the problem solution, inheriting commited choices\footnote{In the current implementation of Flatland, the problem basic atoms must also be forwarded `start/4`, `end/3` and `train/1`}, and adding the malfunctioning actions.
+\end{itemize}
+During the semester the `save/1`  and `load/1` atoms were added \cite{malfunction_branch}, so that the atoms from a previous solution that incurred into a malfunction were inherited into a new, recalculated solution. \color{green} They are single-argument (rather than something time-related, making it a 2-argument) to allow for more flexibility; this way one can store full atoms directly. This makes `primary` and `secondary` encondings in flatland now relevant to differentiate; one can now store the base-structure representation so it does not need to be recalculated. \color{black} \color{gray} I find this confusing. I would call the predicates unary and think flexibility as it stands here unexplained. Just confuses. I would just cut it like: They are unary predicates but due to Clingos nature can store unlimited complex structures. \color{black}

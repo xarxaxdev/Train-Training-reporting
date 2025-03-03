@@ -1,0 +1,47 @@
+\section{Core malfunctions analysis / particularities}
+
+\subsection{Implications on Encodings}
+\color{green}
+\subsubsection{Modularity}
+A common issue when debugging and ASP problem is to figure out which choice rules or deductions may be the biggest timesink in your program. To debug this is usually complicated, and will in all likelyhood disencourage someone unfamiliar with the particularities of grounding and what is used beyond syntax. To draw a simile, I may not know all the secrets of a C++ compiler, but I can write a mediocre C++ code, with timestamps that allow me to figure what particular part of my program is slow, then iterate an improve. This is the case for most programming languages, but no such straightfoward approach exists on `clingo`.
+
+By being allowed to selectively load a set of atoms (that have been generated dynamically), we can easily identify which atom generation is slowing down the program. Doing this is far from the most common way to debug these issues in your average clingo program, but it does respect the fact that clingo wants the solver to be solution-agnostic. 
+\color{black} \color{gray} I would make this just a small note, as it has nothing to do with the problem. And maybe add it to the back if this section. \color{black}
+\subsubsection{File structure}
+\color{green}
+As one may deduce from the different primary/secondary set of encodings, this means a problem representation will have a set of files that is used only for the first run(that only saves) and another for each subsequent malfunction(that saves and loads). As an interesting factor to take into account, we test later on `naive` vs. `proper` approaches; as one could naively use the union of the entire set of files for both approaches. We have chosen to follow these general guidelines for our proper approaches:
+\begin{itemize}
+	\item  \textbf{Saves for an atom are done on the same file it is deduced} Implying that `input.lp` must save the base problem representation. Choice-rule derived atoms are saved in `path.lp` and no saving is needed on `output.lp`. 
+	\item  \textbf{Base-problem save requirements are done on `path.lp`} As they need to be forwarded always, they behave akin to choice-rule derived atoms.  
+	\item  \textbf{Load only in `malfunctions.lp`}  Since load statements are only useful in the event of a malfunction; they are done there. 
+\end{itemize}
+\color{black} \color{gray} I think this is to complicated. Also as of now, we only have one encoding with a "naive" implementation. I think the explanation is to methodical and also my "naive" version doesn't fit in. I would just give it a section and don't put it here in this general fashion. \color{black}
+\subsubsection{Window of grounding}
+
+\subsection{Our interests}
+We found it likely that 2 approaches made sense:
+\color{green}
+\begin{itemize}
+	\item get running baseline 
+	\begin{itemize}
+		\item reschedule
+	\end{itemize}
+	\item three focuses
+	\begin{itemize}
+		\item try different structure
+		\begin{itemize}
+			\item subcellid\_proper
+			\item your encoding if we want to
+		\end{itemize}
+		\item don't pass info
+		\begin{itemize}
+			\item reschedule\_naive
+		\end{itemize}
+		\item deal with the window (less timesteps)
+		\begin{itemize}
+			\item incremental
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\color{black}
+

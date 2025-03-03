@@ -1,0 +1,81 @@
+
+\section{Solutions}
+\color{green}
+\subsection{Definitions}
+To not reiterate the descriptions of the example files we are using for our properly-structured solution, I will be describing it here. While our solution is graph-based; it should be valid for other approaches. The respective files are:
+\begin{itemize}
+	\item  \textbf{input.lp} File that generates the base problem representation (a graph or other); with no choice rules.
+	\item  \textbf{path.lp} File that uses choice rules to determine the path.
+	\item  \textbf{output.lp} File that deduces, given the elected path, which action should be followed by each train; with no choice rules.
+	\item  \textbf{malfunctions.lp} File that loads (selectively, according to the timestamp) and saves upon malfunction. Also where path implications from a malfunction should be deduced; with no choice rules.
+\end{itemize}
+\color{black} \color{gray} I would get rid of this. I think our structure is not important, as it adds nothing to the execution, for the order of lines does not matter. \color{black}
+\color{blue}
+\begin{itemize}
+	\item make small section for it
+	\item flatland and action saving and state machine problems
+\end{itemize}
+\color{black}
+
+
+
+\subsection{Naive (vertex with directions) file partition}
+malfunctions + main
+\color{blue}
+\begin{itemize}
+	\item motivation (comparison of passing and recomputing)
+	\item implementation
+	\begin{itemize}
+		\item just adding malfunction handling on top
+		\item passing just basic information
+	\end{itemize}
+	\item implications
+	\begin{itemize}
+		\item slower grounding?
+		\item else similar as just reschedule
+	\end{itemize}
+\end{itemize}
+\color{black}
+
+
+\subsection{Smart (vertex with directions) file partition}
+\color{green} Would make this one the first, as it is the easiest to explain. And easy to narrate as we implemented it. \color{black}
+malfunctions + input+ path+output
+\color{blue}
+\begin{itemize}
+	\item motivation
+	\item implementation
+	\begin{itemize}
+		\item short summary on graph structure
+		\item talk about split (whats primary, whats secondary)
+		\item extending the window (worst case assumption)
+	\end{itemize}
+	\item implications
+	\begin{itemize}
+		\item escalating window
+		\item bad scaling
+		\item quick with good estimates
+	\end{itemize}
+\end{itemize}
+\color{black}
+
+\subsection{Incremental}
+\color{blue}
+\begin{itemize}
+	\item motivation (better window)
+	\item implementation
+	\begin{itemize}
+		\item work clingo side
+		\item solving adaptations
+		\item step splitting
+		\item primary secondary split
+	\end{itemize}
+	\item implications
+	\begin{itemize}
+		\item sometimes slower
+		\item faster overall
+		\item more adaptive (theoretically does not require horizon)
+	\end{itemize}
+\end{itemize}
+\color{black}
+

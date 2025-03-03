@@ -18,6 +18,25 @@ To not reiterate the descriptions of the example files we are using for our prop
 \color{black}
 
 
+\subsection{Smart (vertex with directions) file partition}
+The basic concept is convert flatland instances into an abstract graph representation. The main difficulty lies therein, that in Flatland cells, are not the only thing constraining movement, but additionally a direction needs to either be tracked as additional information, or be merged into the graph. For this encoding we chose the second approach. To ensure a graph-like structure vertices are not defined by just the cell, but by the cell the train came from. This leads to a graph with directed edges and paths modelling the environment.
+\color{blue}
+\begin{itemize}
+	\item motivation
+	\item implementation
+	\begin{itemize}
+		\item short summary on graph structure
+		\item talk about split (whats primary, whats secondary)
+		\item extending the window (worst case assumption)
+	\end{itemize}
+	\item implications
+	\begin{itemize}
+		\item escalating window
+		\item bad scaling
+		\item quick with good estimates
+	\end{itemize}
+\end{itemize}
+\color{black}
 
 \subsection{Naive (vertex with directions) file partition}
 malfunctions + main
@@ -33,28 +52,6 @@ malfunctions + main
 	\begin{itemize}
 		\item slower grounding?
 		\item else similar as just reschedule
-	\end{itemize}
-\end{itemize}
-\color{black}
-
-
-\subsection{Smart (vertex with directions) file partition}
-\color{green} Would make this one the first, as it is the easiest to explain. And easy to narrate as we implemented it. \color{black}
-malfunctions + input+ path+output
-\color{blue}
-\begin{itemize}
-	\item motivation
-	\item implementation
-	\begin{itemize}
-		\item short summary on graph structure
-		\item talk about split (whats primary, whats secondary)
-		\item extending the window (worst case assumption)
-	\end{itemize}
-	\item implications
-	\begin{itemize}
-		\item escalating window
-		\item bad scaling
-		\item quick with good estimates
 	\end{itemize}
 \end{itemize}
 \color{black}

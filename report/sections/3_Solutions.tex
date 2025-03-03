@@ -69,11 +69,13 @@ This approach is a rudimentary one, representing agents and their position, for 
 
 \noindent The secondary encoding handles malfunctions in three steps.
 
-\textit{Reconstruction} relies on the previous encoding passing the path and uses it together with the malfunction time, to reconstruct the current state. To that end, the plan is copied for all timesteps up to malfunction time. Except the malfunctioning trains and trains which collide with them. For those the last action fails and one less is copied.
+\textit{Reconstruction} relies on the previous encoding passing the path and uses it together with the malfunction time, to reconstruct the current state. To that end, the plan is copied for all timesteps up to malfunction time. Except the malfunctioning trains and trains which collide with them. For those the last action fails and one less is copied. 
 
 \textit{Persisting} computes how long a train malfunctions and derives persistent information which will never be violated even if another malfunction happens in the next timestep.
 
 \textit{Recompute} repeats the pathfinding computation with a shifted window. The window starts at the malfunction timesteps and exceeds the old window by the duration of the worst malfunction at the timestep. This assumes the worst case, as a malfunction for 5 timesteps, at worst requires 5 additional timesteps to solve the instance.\\
+
+To save on computation, the secondary encodings do not compute the graph again, but instead get it passed via save/load, thus receiving the derived atoms as input.
 
 \noindent \textbf{Implications} This might lead to an explosion of window size. If multiple trains, successively encounter a malfunction of 1 timestep, while not interfering with one another, they would still require one additional timestep to ensure solvability. Instead, this encoding would add as many timesteps as trains, complicating computation.
 
@@ -81,41 +83,24 @@ As this encoding models the paths by timesteps it scales bad with bigger instanc
 
 Lastly, it might not be optimal but given a good guess for the horizon, it can compute a valid path without any optimality quickly.
 
-\subsection{Naive (vertex with directions) file partition}
-malfunctions + main
-\color{blue}
-\begin{itemize}
-	\item motivation (comparison of passing and recomputing)
-	\item implementation
-	\begin{itemize}
-		\item just adding malfunction handling on top
-		\item passing just basic information
-	\end{itemize}
-	\item implications
-	\begin{itemize}
-		\item slower grounding?
-		\item else similar as just reschedule
-	\end{itemize}
-\end{itemize}
-\color{black}
+\subsection{Naive Graph}
+\textbf{Motivation} To ascertain, that passing the graph-predicates instead of just passing the environment-predicates and recomputing it, this encoding was implemented.
+
+\textbf{Implementation} As the secondary encoding receives its sole input from the previous runs it is necessary to load and save the environment predicates on every run. These are then used to compute the graph as well as a solution.
+
+\textbf{Implications} This approach will probably end up being slower. As reading the graph from predicates should be slower than computing it. Other than that it should be quite similar, to the graph approach.
 
 \subsection{Incremental}
-\color{blue}
-\begin{itemize}
-	\item motivation (better window)
-	\item implementation
-	\begin{itemize}
-		\item work clingo side
-		\item solving adaptations
-		\item step splitting
-		\item primary secondary split
-	\end{itemize}
-	\item implications
-	\begin{itemize}
-		\item sometimes slower
-		\item faster overall
-		\item more adaptive (theoretically does not require horizon)
-	\end{itemize}
-\end{itemize}
-\color{black}
+\textbf{Motivation} Incremental encodings as described in \cite{incr} allow for incrementally adding timesteps to the grounding until a problem is solvable. The advantage of that is, if the amount of time required to solve a problem is unknown, this allows to solve it and also with the minimal amount of timesteps. The main downside is, that every iteration requires it to prove unsatisfieability before adding the next timestep. Thus, it is mostly applicable, when lacking a good estimate of the horizon.
 
+Nonetheless, this approach should be well suited, for this problem. As instead of being run once, it is run multiple times for every malfunction, where every unnecessary timestep extends the time taken over and over.
+
+The resulting concept is, to use the horizon estimate as the other encodings do, but whenever this leads to unsatisfieability another timestep is added. Thus still using the given estimate, but using the incremental implementation mainly for malfunction handling. In the case of a malfunction it first tries to solve it, without adding timesteps and only adds them if required.\\
+
+\noindent \textbf{Implementation} This required work on the Clingo side. Since the environment given, to run instances, does not allow Clingo to call any python modes from within, I needed to modify the given solve.py. The result can be seen in our GitHub Repository and follows closely the implementation in \cite{incr}.
+
+Next the encoding was separated into steps, as described above. The graph generation and pathfinding up to the first horizon, happened in the first run. Then a stepwise pathfinding (mimicking the other) is implemented for the step and only ever grounds one additional step. And lastly the goal condition of every agent reaching its goal, was implemented in the check part of the program, which is grounded before every solving and removed afterwards.
+
+Other than that. It is an extension of the graph approach and uses the same building and passing of the graph.\\
+
+\noindent \textbf{Implications} As it solves over and over, this encoding should perform worse in some timesteps, where the adding of additional timesteps, is required. But other than that it should, outperform the other encodings. This should hold especially for environments dense in malfunctions, where the worst case assumption should add way to many additional timesteps.

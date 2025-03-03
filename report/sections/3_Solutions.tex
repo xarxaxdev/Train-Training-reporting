@@ -84,11 +84,11 @@ As this encoding models the paths by timesteps it scales bad with bigger instanc
 Lastly, it might not be optimal but given a good guess for the horizon, it can compute a valid path without any optimality quickly.
 
 \subsection{Naive Graph}
-\textbf{Motivation} To ascertain, that passing the graph-predicates instead of just passing the environment-predicates and recomputing it, this encoding was implemented.
+\noindent \textbf{Motivation} To ascertain, that passing the graph-predicates instead of just passing the environment-predicates and recomputing it, this encoding was implemented.\\
 
-\textbf{Implementation} As the secondary encoding receives its sole input from the previous runs it is necessary to load and save the environment predicates on every run. These are then used to compute the graph as well as a solution.
+\noindent \textbf{Implementation} As the secondary encoding receives its sole input from the previous runs it is necessary to load and save the environment predicates on every run. These are then used to compute the graph as well as a solution.\\
 
-\textbf{Implications} This approach will probably end up being slower. As reading the graph from predicates should be slower than computing it. Other than that it should be quite similar, to the graph approach.
+\noindent \textbf{Implications} This approach will probably end up being slower. As reading the graph from predicates should be slower than computing it. Other than that it should be quite similar, to the graph approach.
 
 \subsection{Incremental}
 \textbf{Motivation} Incremental encodings as described in \cite{incr} allow for incrementally adding timesteps to the grounding until a problem is solvable. The advantage of that is, if the amount of time required to solve a problem is unknown, this allows to solve it and also with the minimal amount of timesteps. The main downside is, that every iteration requires it to prove unsatisfieability before adding the next timestep. Thus, it is mostly applicable, when lacking a good estimate of the horizon.

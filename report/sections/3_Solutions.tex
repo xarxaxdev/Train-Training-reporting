@@ -3,7 +3,7 @@
 Every encoding below uses an estimate of the horizon as window for its computations, which is passed from the flatland environments.
 
 \subsection{Graph}
-\noindent \textbf{Motivation} The basic concept is to convert Flatland instances into an abstract graph representation. The main difficulty lies therein, that in Flatland cells are not the only thing constraining movement, but additionally a direction needs to either be tracked as additional information, or be merged into the graph. For this encoding we chose the second approach. To ensure a graph-like structure vertices are not defined by just a cell, but also from where it was reached. This leads to a graph with directed edges and paths modelling the environment. This approach serves as a baseline for comparison, and a foundation to build upon with the other encodings.\\
+\noindent \textbf{Motivation} The basic concept here is to convert Flatland instances into an abstract graph representation. The main difficulty lies therein, that in Flatland cells are not the only thing constraining movement, but additionally a direction needs to either be tracked as additional information, or be merged into the graph. For this encoding we chose the second approach. To ensure a graph-like structure vertices are not defined by just a cell, but also from where it was reached. This leads to a graph with directed edges and paths modelling the environment. This approach serves as a baseline for comparison, and a foundation to build upon with the other encodings.\\
 
 \begin{figure}
 \begin{minipage}[t]{0.45\textwidth}
@@ -58,34 +58,37 @@ This approach is a rudimentary one, representing agents and their position, for 
 
 \textit{Recompute} repeats the pathfinding computation with a shifted window. The window starts at the malfunction timesteps and exceeds the old window by the duration of the worst malfunction at the current timestep. This assumes the worst case, as a malfunction for 5 timesteps, at worst requires 5 additional timesteps to solve the instance.\\
 
-To save on computation, the secondary encodings dos not compute the underlying graph again, but instead gets it passed via save/load, thus receiving the derived atoms as input.
+To save on computation, the secondary encodings does not compute the underlying graph again, but instead gets it passed via save/load, thus receiving the derived atoms as input.
 
 \noindent \textbf{Implications} This might lead to an explosion of window size. If for example multiple trains, successively encounter a malfunction of 1 timestep, while not interfering with one another, they would still require one additional timestep to ensure solvability. Instead, this encoding would add as many timesteps as trains, complicating computation.
 
-As this encoding models the paths by timesteps it scales bad with bigger instances, leading to an explosion in grounding.
+As this encoding models the paths by timesteps it scales badly with bigger instances, leading to an explosion in grounding.
 
 Lastly, it might not be optimal but given a good guess for the horizon, it can compute a valid path without any optimality quickly.
 
 \subsection{Naive Graph}
-\noindent \textbf{Motivation} To ascertain, that passing the graph-predicates instead of just passing the environment-predicates and recomputing it improves runtime, this encoding was implemented.\\
+\noindent \textbf{Motivation} To ascertain whether, passing the graph-predicates instead of just passing the environment-predicates and recomputing it, improves runtime this encoding was implemented.\\
 
 \noindent \textbf{Implementation} As the secondary encoding receives its sole input from the previous runs it is necessary to load and save the environment predicates on every run. These are then used to compute the graph as well as a solution. Other than that it mirrors the graph approach.\\
 
-\noindent \textbf{Implications} This approach will probably end up being slower. As reading the graph from predicates should be slower than computing it. Other than that it should be quite similar, to the graph approach.
+\noindent \textbf{Implications} This approach will probably end up being slower than the baseline. As reading the graph from predicates should be slower than computing it. Other than that it should behave quite similarly to the graph approach.
 
 \subsection{Incremental}
-\textbf{Motivation} Incremental encodings as described in \cite{incr} allow for incrementally adding timesteps to the grounding until a problem is solvable. The advantage of that is, if the amount of time required to solve a problem is unknown, this allows to solve it with the minimal amount of timesteps, not requiring an estimated horizon. The main downside is, that every iteration requires it to prove unsatisfieability before adding the next timestep. Thus, it is mostly applicable, when lacking a good estimate of the horizon.
+\textbf{Motivation} Incremental encodings as described in \cite{incr} allow for incrementally adding timesteps to the grounding until a problem is solvable. The advantage of that is, if the amount of time required to solve a problem is unknown, this allows to solve it with the minimal amount of timesteps, not requiring an estimated horizon. The main downside is, that every iteration requires it to prove unsatisfiability before adding the next timestep. Thus, it is mostly applicable, when lacking a good estimate of the horizon.
 
 Nonetheless, this approach should be well suited, for this problem. As instead of being run once, it is run multiple times for every malfunction, where every unnecessary timestep extends the time taken over and over. \\
 
-\noindent \textbf{Implementation} The resulting implementation uses the horizon estimate as the other encodings do, but whenever this leads to unsatisfieability another timestep is added. Thus still using the given estimate and not having to prove unsatisfieability too often. The incremental implementation is mainly used for malfunction handling. In the case of a malfunction it first tries to solve it, without adding timesteps and only adds them if required.
+\noindent \textbf{Implementation} The resulting implementation uses the horizon estimate as the other encodings do, but whenever this leads to unsatisfiability another timestep is added. Thus, still using the given estimate and not having to prove unsatisfieability too often. The incremental implementation is mainly used for malfunction handling. In the case of a malfunction it first tries to solve it, without adding timesteps and only adds them if required. 
 
-This required work on the repository side, where Clingo is called. Since the repository given calls the Python Clingo API, it is not possible to call python from Clingo again. So I needed to modify the given call in api.py. The result can be seen in our GitHub Repository and follows closely the implementation in \cite{incr}.
+This required work on the repository side, where \textit{Clingo} is called. Since the repository given calls the Python \textit{Clingo} API, it is not possible to call python from \textit{Clingo} again. So Felix needed to modify the given call in api.py. The result can be seen in our GitHub Repository and follows closely the implementation in \cite{incr}.
 
-Next the encoding was separated into steps, as described above. The graph generation and pathfinding up to the first horizon, happened in the first run. Then a stepwise pathfinding (mimicking the other) is implemented for the step and grounds one step at a time. And lastly the goal condition of every agent reaching its goal, was implemented in the check part of the program, which is grounded before every solving and removed afterwards.
+Next the encoding was separated into steps, as described above. The graph generation and pathfinding up to the first horizon, happened in the first run. Then a stepwise pathfinding (mimicking the other) is implemented for the step and grounds one step at a time. Lastly the goal condition of every agent reaching its goal, was implemented in the check part of the program, which is grounded before every solving and removed afterwards.
+\color{red} Then a stepwise pathfinding (mimicking the other) is implemented for the step and grounds one step at a time. -> WHAT\color{black}
 
-Other than that. It is an extension of the graph approach and uses the same building and passing of the graph.\\
+Representationwise, It is an extension of the graph approach and uses the same building and passing of the graph.\\
 
 \noindent \textbf{Implications} As it solves over and over, this encoding should perform worse in some timesteps, where the adding of additional timesteps, is required.
 
 Other than that it should, outperform the other encodings. This should hold especially for environments dense in malfunctions, where the worst case assumption should add way to many additional timesteps.
+
+\color{red} Should it not perform worse when e.g.  very disjointed windows (start,end) happen? As a problem becomes less NP and more individual problems, it should perform worse \color{black}

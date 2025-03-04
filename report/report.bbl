@@ -20,8 +20,19 @@ Murphy, R.~K. (2025a).
 \newblock \url{https://github.com/krr-up/flatland}.
 \newblock Accessed: 01.03.2025.
 
+<<<<<<< HEAD
+\bibitem[Murphy, 2025b]{malfunction_issue}
+Murphy, R.~K. (2025b).
+\newblock krr-up issue \#30.
+\newblock \url{https://github.com/krr-up/flatland/commits/malfunctions}.
+\newblock Accessed: 04.03.2025.
+
+\bibitem[Murphy, 2025c]{malfunction_branch}
+Murphy, R.~K. (2025c).
+=======
 \bibitem[Murphy, 2025b]{malfunction_branch}
 Murphy, R.~K. (2025b).
+>>>>>>> 71fadc3 (small nitpicks)
 \newblock Malfunctions commit branch.
 \newblock \url{https://github.com/krr-up/flatland/commits/malfunctions}.
 \newblock Accessed: 01.03.2025.

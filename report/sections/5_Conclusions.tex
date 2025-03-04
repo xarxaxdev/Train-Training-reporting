@@ -21,14 +21,26 @@ As visible in Figure \ref{fig:sparse_cropped}, \ref{fig:medium_cropped} and \ref
 
 \begin{figure*}
 	\includegraphics[width=1\textwidth]{benchmarking/medium_3_4_rerun_full.eps}
-	\caption{A selected medium Instance, 3\% Malfunction}
+	\caption{A selected medium Instance, 3\% Malfunction\color{red} I want to explain better what the dots and the colors are\color{black}}
 	\label{fig:medium_instance}
 \end{figure*}
+\color{red} Conclusions should be Results \color{black}
 
-As Figure \ref{fig:medium_instance} illustrates, the first reruns have a growing time consumption (in the example up to the 20th rerun), but after some trains have reached their goals, the rerun time decreases as does the window, due to fewer malfunctions. It is still not the most efficient solution, as the incremental approach illustrates, but the escalation is not as bad as expected.
 
-The assumption, that the malfunction handling of the graph approach works worst for malfunction dense environments did not hold. The assumption was that more malfunctions, extend the computation window by too much, when using the worst case estimate (as in graph). Taking incremental as a comparison, one can see, that the graph approach performs better in the dense setting, thus refuting our assumption. We did not take into account, that more malfunctions also tend to approach the worst case, and thus improve the performance of the approach relatively.
+As Figure \ref{fig:medium_instance} illustrates, the first reruns have a growing time consumption (in the example up to the 20th rerun), but after some trains have reached their goals, the rerun time decreases as does the window, due to fewer malfunctions. It is still not the most efficient solution, as the incremental approach illustrates, but the scaling is not as bad as expected.
+
+The hypothesis, that the malfunction handling of the graph approach works worse for malfunction dense environments did not hold. The hypothesis was that more malfunctions, extend the computation window by too much, when using the worst case estimate (as in graph). Taking incremental as a comparison, one can see, that the graph approach performs better in the dense setting, thus refuting our assumption. We did not take into account, that more malfunctions also tend to approach the worst case, and thus improve the performance of the approach relatively.
+\color{red}To be fair, the overall window is also shorter for sparse. The first two sentences took me a couple times reading through
+\color{black}
 
 Our assumption that the naive approach would perform worse than the graph approach did not hold. It seems, that computing the graph is similarly efficient as reading the graph from input, with most instances performing slightly better, if the graph is recomputed (naive).
+\color{red}No significant difference even on sparse instances; as we can see in the long tail probably the grounding of the graph is under a second.
+\color{black}
 
 But the assumption, of the incremental outperforming the other approaches did hold. It shows shorter runtimes over all instances, also requiring less reruns, as it's solutions always use the optimal horizon. The window is shrinking on every rerun and only extended if required. One can spot the reruns, where more timesteps were necessary, by looking at the peaks in Figure \ref{fig:medium_instance}.
+
+
+\color{red}logarithimic curve due to the nature of NP problems(decisional)
+
+
+\color{black}

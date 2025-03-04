@@ -1,9 +1,16 @@
 \section{Fazit}
-When testing the environment the hybrid approach of using the estimate and incrementing the timesteps, when required, outperformed the others on all instances. This illustrates the advantages and the ability of an incremental approach to build on and adapt previous knowledge. And it shows such an approach works well, for this kind of problem. A possible extensions would be, to pass the grounding information from the previous runs, instead of just passing the representation. In concept, it should be possible as the map does not change, and any malfunction just adds new assumptions. That would be a good topic for more research.
+\color{red}  This should be conclusions \color{black}
+
+
+When testing the environment, the hybrid \color{red}  incremental? \color{black} approach of using the estimate and incrementing the timesteps, when required, outperformed the others on all instances. This illustrates the advantages and the ability of an incremental approach to build on and adapt previous knowledge. And it shows such an approach works well, for this kind of problem. A possible extension would be, to pass the grounding information from the previous runs, instead of just passing the representation. In concept, it should be possible as the map does not change, and any malfunction just adds new assumptions. That would be a good topic for more research.\color{red}  Also more predictable computation time after the first iteration \color{black}
 
 As a side benefit, incremental computes shorter paths (thus needing fewer reruns), as it finds timestep optimal solutions. Optimality, would be a good topic for further study, as enforcing optimality (e.g. trains arrive with as much time left as possible) might further reduce, the necessary window and quicken reruns.
 
-Another idea, not thematized by this paper, is to use more resilient paths, which ensure a minimum distance between trains, enabling more reusing of previous paths, when reruns happen.  
+\color{red}  Reading/recalculating from 0 shows no significant difference, at least with a simplified graph representation. \color{black}
+
+\color{red}  Further research \color{black}
+
+Another idea, not explored by this paper, is to use more resilient paths, which ensure a minimum distance between trains, enabling more reusing of previous paths, when reruns happen.  \color{red}  It could be interesting to compare whether optimize statements perform significantly worse compared to an incremental solution\color{black}
 
 Other than that, all ideas which limit grounding and solving are worth pursuing and applicable to Flatland as long as they are applicable to graph structures.
 

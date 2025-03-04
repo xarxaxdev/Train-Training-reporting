@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{instance_folder}
+Kratzsch, F.: Testing instances.
+  \url{https://github.com/FeignDeath/Train-Training/tree/main/envs/testing_instances}
+  (2025), accessed: 01.03.2025
+
+\bibitem{flatland}
+Murphy, R.K.: Flatland. \url{https://github.com/krr-up/flatland} (2025),
+  accessed: 01.03.2025
+
+\bibitem{malfunction_branch}
+Murphy, R.K.: Malfunctions commit branch.
+  \url{https://github.com/krr-up/flatland/commits/malfunctions} (2025),
+  accessed: 01.03.2025
+
+\end{thebibliography}

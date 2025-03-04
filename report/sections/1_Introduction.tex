@@ -1,5 +1,5 @@
 \section{Introduction to Flatland and Malfunction mechanics}
-
+\color{red} WE MENTION IN THIS SECTION ONLY THE THINGS THAT ARE UNIVERSALLY TRUE FOR FLATLAND \color{black}
 \subsection{Flatland}
 Flatland\cite{flatland} is the framework this report researches on. To quote from the official repository:
 \begin{quote}
@@ -18,12 +18,28 @@ The simulation environment allows specific connections between different roads, 
 \subsection{Particularities of malfunctions}
 \color{green}
 \begin{itemize}
-	\item what are primary and secondary encodings? Are used later but a short explanation would be neat
+	\item what are primary and secondary encodings? Are used later but a short explanation would be neat \color{red} ->Now mentioned
 \end{itemize}
 \color{black}
-A flatland simulation is run one step at a time, meaning that a train of the max speed, 1, which is also the default, will advance to a the next cell in the direction it is facing. At run-time, a malfunction (or multiple) may happen at any point. A malfunction at time T, with duration D implies the train must wait during D turns (or if it is unspawned, it must remain that way), from turn T onward. To be very precise: the action performed in T-1 will be completed (so a change of coordinates may happen between T-1 and T) but the action that is started at T must be `wait`. This will turn valid solutions into invalid; and force trains to arrive later. This translates roughly to 2 things:
+A flatland simulation is run one step at a time, meaning that a train of the max speed, 1, which is also the default, will advance to a the next cell in the direction it is facing. At run-time, a malfunction (or multiple) may happen at any point. One can specify different encodings for when a simulation is run for the first time (the `primary` encoding) and for when a simulation is continued after a malfunction (the optional, secondary encoding).
+
+
+A malfunction at time T, with duration D implies the train must wait during D turns (or if it is unspawned, it must remain that way), from turn T onward. To be very precise: the action performed in T-1 will be completed (so a change of coordinates may happen between T-1 and T) but the action that is started at T must be `wait`. This will turn valid solutions into invalid; and force trains to arrive later. This translates roughly to 2 things:
 \begin{itemize}
 	\item Figure out the commited atoms until the point where a malfunction happened.
 	\item Rerun the problem solution, inheriting commited choices\footnote{In the current implementation of Flatland, the problem basic atoms must also be forwarded `start/4`, `end/3` and `train/1`}, and adding the malfunctioning actions.
 \end{itemize}
-During the semester the `save/1`  and `load/1` atoms were added \cite{malfunction_branch}, so that the atoms from a previous solution that incurred into a malfunction were inherited into a new, recalculated solution. \color{green} They are single-argument (rather than something time-related, making it a 2-argument) to allow for more flexibility; this way one can store full atoms directly. This makes `primary` and `secondary` encondings in flatland now relevant to differentiate; one can now store the base-structure representation so it does not need to be recalculated. \color{black} \color{gray} I find this confusing. I would call the predicates unary and think flexibility as it stands here unexplained. Just confuses. I would just cut it like: They are unary predicates but due to Clingos nature can store unlimited complex structures. \color{black}
+During the semester the `save/1`  and `load/1` atoms were added \cite{malfunction_branch}, so that the atoms from a previous solution that incurred into a malfunction were inherited into a new, recalculated solution. \color{green} This makes `primary` and `secondary` encondings in flatland now relevant to differentiate; one can now store the base-structure representation so it does not need to be recalculated. \color{black} \color{gray} I find this confusing. I would call the predicates unary and think flexibility as it stands here unexplained. Just confuses. I would just cut it like: They are unary predicates but due to Clingos nature can store unlimited complex structures. 
+\color{red} Restructured things a bit, I think the green-highlighted text is now better?
+
+\color{black}
+
+On the other hand, one may consider `save/1`  and `load/1` could also work as time are binary, time-dependant atoms, making. The motivation for keeping them unary is to allow for more flexibility; one can store full atoms directly. If someone was able to come up with a solution completely independant from time, they should not be forced to use more than whichever atoms werwe need for their representation.
+
+
+\subsection{Edge cases}
+
+\subsubsection {Trying to use unmatching actions with prior to a malfunction} Even though the simulation may reach the end succesfully( with all trains reaching a destination timely) a solving run will be considered invalid if the actions are incompatible with the originally chosen
+
+\subsubsection {Having to delay an end} Due to malfunctions, a simulation may not be able to finish, so both the global timestamps and the end(Agent,Postiton,Time) may require a certain amount of delay before being finished.
+

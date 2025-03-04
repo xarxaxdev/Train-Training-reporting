@@ -1,27 +1,27 @@
 \section{Introduction to Flatland and Malfunction mechanics}
 \color{red} WE MENTION IN THIS SECTION ONLY THE THINGS THAT ARE UNIVERSALLY TRUE FOR FLATLAND \color{black}
 \subsection{Flatland}
-Flatland\cite{flatland} is the framework this report researches on. To quote from the official repository:
+Flatland\cite{flatland} is the framework this report researches on. To introduce it, let us just quote from the official repository:
 \begin{quote}
 \emph{	Flatland is a railway scheduling challenge hosted by AICrowd that seeks to solve the problem of multi-agent pathfinding for trains in large railway networks. Although approaches across all domains (e.g. reinforcement learning, operations research) are welcome, this repository focuses on integrating ASP-based solutions within the Flatland framework.}
 \end{quote}
 
 The simulation environment allows specific connections between different roads, different train speeds and for unexpected malfunctions. As the title of this report alludes to, we will be focusing on the more malfunction-adjacent implications, and measuring across various aspects that may be related to it.
 
-There are two kinds of horizons in Flatland. Personal horizons, which can be used for optimizing (e.g. for machine learning approaches), and a global horizon at which the instance will end. We use the horizons as an estimate for our computation windows (see section\ref{sec:window}), and deactivated the global horizon.
+There are two kinds of horizons in Flatland. Personal horizons, which can be used for optimizing and are train-dependant (e.g. for machine learning approaches), and a global horizon at which the instance will end. We used the horizons as an estimate for our computation windows (see section \ref{sec:window}), and deactivated the global horizon.
 
 \subsection{Particularities of malfunctions}
-A flatland simulation is run one step at a time, meaning that a train of the max speed 1 (default) will advance to the next cell given a corresponding action. At run-time, a malfunction (or multiple) may happen at any point. On a malfunction, affected trains, fail executing their action and have to wait for a set duration. This may invalidate previous solutions; and force trains to arrive later.
-
+A flatland simulation is run one step at a time, meaning that a train of the max speed 1 (default) will advance to the next cell given a corresponding action. At run-time, a malfunction (or multiple) may happen at any point. Upon a malfunction, affected trains, fail executing their action and have to wait for a set duration. This may invalidate previous solutions; and force trains to arrive later.
+% This spacing looks a bit ugly or?
 Any encoding called on a malfunction would have to:
 \begin{itemize}
-	\item Figure out the current state, as it only gets, what was passed previously
+	\item Figure out the current state, as it only gets, what was forwarded previously
 	\item Rerun the problem solution, inheriting previous choices and adding the malfunctioning implications
 \end{itemize}
 
-Our interface, as provide by \cite{flatland}, allows for up to two encodings, to solve malfunctions. A mandatory primary encoding, which is run, when the simulation starts, to compute the initial plan. It receives, the instance information (map information). The secondary encoding is optional and if specified run after every malfunction, to compute a new plan. It receives only forwarded atoms. Should no secondary encoding be specified, the primary is used instead.
+Our interface, as is provided by \cite{flatland}, allows for up to two encodings, to solve malfunctions. A mandatory \textbf{primary} encoding, which is run, when the simulation starts, to compute the initial plan. It receives, the instance information (map information). The \textbf{secondary} encoding is optional and if specified run after every malfunction, to compute a new plan. It receives only forwarded atoms. Should no secondary encoding be specified, the \textbf{primary} is used instead.
 
-For the purpose of forwarding, the \texttt{save/1} and \texttt{load/1} atoms were added during the semester.\cite{malfunction_branch} They are unary predicates, and \texttt{save} is solely dependent on the previous runs. An alternative would have been a binary time-dependant version, where all previous information is combined with the timesteps it was forwarded at, always receiving all previously saved information.
+For the purpose of forwarding atoms, the \texttt{save/1} and \texttt{load/1} atoms were added during the semester\cite{malfunction_branch}. They are unary predicates, and \texttt{save} is solely dependent on the previous runs. An alternative would have been a binary time-dependant version, where all previous information is combined with the timesteps it was forwarded at, always receiving all previously saved information. \color{red} but the unary predicate was chosen for more flexibility.\color{black}
 
 \subsection{Edge cases}
 A malfunction at time T, with duration D implies the train must wait during D turns (or if it is unspawned, it must remain that way), from turn T onward. To be very precise: the action performed in T-1 will be completed (so a change of coordinates may happen between T-1 and T) but the action that is started at T must be `wait`.

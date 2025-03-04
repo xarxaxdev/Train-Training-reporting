@@ -3,3 +3,4 @@ secondary only gets malfunction knowledge and saved
 explain vertex and swap conflicts
 pass grounding as outlook
 explain that many malfunctions approach the point the worst case scenario, thus actually better the fewer malfunctions, where it approaches the explained situation(thus middle best)
+cut personal observations in favor of an overview and fazit

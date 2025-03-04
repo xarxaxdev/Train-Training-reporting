@@ -1,59 +1,38 @@
+\subsection{Edge cases}
+
+\subsubsection {Collision} Without resilience (trains keeping space in between them) a malfunctioning train might have multiple trains crashing into it. These trains then fail their action as well.
+
+\subsubsection {Trying to use unmatching actions with prior to a malfunction} Even though the simulation may reach the end successfully (with all trains reaching a destination timely) a solving run will be considered invalid if the actions are incompatible with the originally chosen
+
+\subsubsection {Having to delay an end} Due to malfunctions, a simulation may not be able to finish, so both the global timestamps and the end(Agent, Position, Time) may require a certain amount of delay before being finished.
+
+\subsection {Auto Spawning} Depending on the interface, malfunctions off map, might lead to them automatically spawning, when the malfunction is done. (For more info see \cite{malfunction_issue})
+
 \section{Core malfunctions analysis / particularities}
-% \color{red} WE MENTION IN THIS SECTION ONLY THE THINGS THAT ARE  RELEVANT REGARDING WHAT IS CONSIDERED FOR OUR APPROACH (BUT NO SPECIFICS)\color{black}
 \subsection{Implications on Encodings}
 
-
-
-
-% \subsubsection{File structure}
-% \color{green}
-% As one may deduce from the different primary/secondary set of encodings, this means a problem representation will have a set of files that is used only for the first run(that only saves) and another for each subsequent malfunction(that saves and loads). As an interesting factor to take into account, we test later on `naive` vs. `proper` approaches; as one could naively use the union of the entire set of files for both approaches. We have chosen to follow these general guidelines for our proper approaches:
-
-% \color{black} \color{gray} I think this is to complicated. Also as of now, we only have one encoding with a "naive" implementation. I think the explanation is to methodical and also my "naive" version doesn't fit in. I would just give it a section and don't put it here in this general fashion. \color{black}
-
-% \color{green}
 \subsubsection{Modularity}
-
 A common issue when debugging and ASP problem is to figure out which choice rules or deductions may be the biggest timesink in your program. To debug this is usually complicated, and will in all likelihood discourage someone unfamiliar with the particularities of grounding and what is used beyond syntax. To draw a simile, I may not know all the secrets of a C++ compiler, but I can write a mediocre C++ code, with timestamps that allow me to figure what particular part of my program is slow, then iterate an improve. This is the case for most programming languages, but no such straightforward approach exists on `Clingo`.
 
 By being allowed to selectively load a set of atoms (that have been generated dynamically), we can easily identify which atom generation is slowing down the program. Doing this is far from the most common way to debug these issues in your average Clingo program, but it does respect the fact that Clingo wants the solver to be solution-agnostic. 
-% \color{black} \color{gray} I would make this just a small note, as it has nothing to do with the problem. And maybe add it to the back if this section. \color{black}
 
 
 \subsubsection{Window of grounding}
 \label{sec:window}
-
 The mechanics of malfunctions, have made us focus on to trying to build an encoding that uses a window, rather than solving a problem. While the problem-agnostic nature usually focuses on direct problems that can be grounded and solved, when building an encoding for malfunctions one realises that all timestamps prior to the current are not necessary to reach a successful solution (neither the atoms used to indicate when a train is at a particular position at a particular time). As such one does not need to ground time values outside the window that has been calculated.
 
 This is a hacky workaround against the limitations of ASP; in problems where the horizon of events is too large one may just have too much grounding to do for it. Segmenting said problem seems like the obvious workaround around it, and opens up the posibility of unlimited running simulations. This definitely jumps outside flatland, but chip microcontrollers often work in an infinte-loop; windowed ASP could be a good use case.
   
- 
-
 
 \subsection{Our interests}
-
-While a malfunction may not seem too complicate to work on, there is a huge variety of edge cases that can (and will) appear as one tries to write a working encoding. Not only that, multiple consecutive malfunctions may happen in a simulation, some of them at the same timestamp. This means that a encoding with a `leaky atom grounding` will not work on more malfunction-prone simulations. As such the first focus was to have a solution that actually worked for all edge cases was an important solution, as well as a solution that used the forementioned window of grounding. This initial soluction was named Graph \footnote{https://github.com/FeignDeath/Train-Training/tree/main/asp/graph\_reschedule}. 
-
-
-The forwarding of information allows, to pass finished representations instead of recomputing them. For that we will implement a second approach. Which opposed to the first, passes as little information as possible and recomputes as much as possible.\footnote{https://github.com/FeignDeath/Train-Training/tree/main/asp/graph\_reschedule\_naive}. While this is usually not the most time-costly part of the NP-natured problems that an ASP enconding solves, it is interesting nonetheless to know study whether it there are advantages of having it staticly read rather than calculated. The difference may become relevant when one wants to work on a very big map represenation; or when one decides to ground a more complex representation for the sake of simplifying the search space.
-
-% After having an initial baseline, the splitting of the encodings was the next thing to pick our interest and how information is passed. The question is, whether an 
+While a malfunction may not seem too complicate to work on, there is a huge variety of edge cases that can (and will) appear as one tries to write a working encoding. Not only that, multiple consecutive malfunctions may happen in a simulation, some of them at the same timestamp. This means that an encoding with a `leaky atom grounding` will not work on more malfunction-prone simulations. As such the first focus was to have a solution that actually worked for all edge cases was an important solution, as well as a solution that used the forementioned window of grounding. This initial solution was named Graph \footnote{https://github.com/FeignDeath/Train-Training/tree/main/asp/graph\_reschedule}. 
 
 
-
-% Intuitively, one would think that having the atoms hardcoded would save the grounding a lot of time, when it comes to generating the underlying representation (since these need to be calculated anyways).    The initial approach had already a malfunction-dependant thus a `naive splitting` where the statements to deduce the atoms for the base representation were includeded regardless of whether it was a clean run or a malfunction \footnote{https://github.com/FeignDeath/Train-Training/tree/main/asp/graph\_reschedule\_naive}. 
-
-To make sure the behavior of the splitting was not too tied to our specific representation, an alternative solution with both the `naive` and proper representation was implemented. The approach itself on this alternative is quite similar, but no items are pregrounded to detect conflics; the same edges for the graph representation are used. 
-\color{red}
-I WANT TO WRITE MORE ON THIS, BUT I AM NOT SURE IF WERE GOING TO INCLUDE IT IN THE END.
-\color{black}
+The forwarding of information allows, to pass finished representations instead of recomputing them. For that we will implement a second approach. Which opposed to the first, passes as little information as possible and recomputes as much as possible.\footnote{https://github.com/FeignDeath/Train-Training/tree/main/asp/graph\_reschedule\_naive}. While this is usually not the most time-costly part of the NP-natured problems that an ASP encoding solves, it is interesting nonetheless to know study whether it there are advantages of having it staticly read rather than calculated. The difference may become relevant when one wants to work on a very big map representation; or when one decides to ground a more complex representation for the sake of simplifying the search space.
 
 
-Finally, since the simulation itself is completely tied to iteratively going through the time, we found it interesting to study how an incremental solution tied to time would perform. 
-\color{red}FELIX FEEL FREE TO ADD SPECIFICS HERE
-\color{black} 
+Finally, since the simulation itself is completely tied to iteratively going through the time, we found it interesting to study how an incremental solution tied to time would perform. Timesteps are a severe problem for grounding, thus any reduction, would be a good concept. To that end we implement an incremental approach, which in theory should perform best, when many malfunctions happen, as it does not require a problematic estimate to expand the time, but can only ground as much as necessary.
 
-\footnote{https://github.com/FeignDeath/Train-Training/tree/main/asp/incremental}
 
 We would have been interested in solution-resilience as well since what a malfunction effectively does some pruning in the solution space. But seeing as this would be our first usage of an optimize statement on top of the already complex implementation, and that we had opted rather for prolonging the allowed end timestamp in all of our experimentation, we thought it was beyond the scope of our research.
 

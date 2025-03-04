@@ -1,2 +1,11 @@
-\section{Personal observations}
-In order to prioritize the malfunctions specific study, I choose to be rather brief with my overall introduction to flatland, as was also requested for the presentation
+\section{Fazit}
+When testing the environment the hybrid approach of using the estimate and incrementing the timesteps, when required, outperformed the others on all instances. This illustrates the advantages and the ability of an incremental approach to build on and adapt previous knowledge. And it shows such an approach works well, for this kind of problem. A possible extensions would be, to pass the grounding information from the previous runs, instead of just passing the representation. In concept, it should be possible as the map does not change, and any malfunction just adds new assumptions. That would be a good topic for more research.
+
+As a side benefit, incremental computes shorter paths (thus needing fewer reruns), as it finds timestep optimal solutions. Optimality, would be a good topic for further study, as enforcing optimality (e.g. trains arrive with as much time left as possible) might further reduce, the necessary window and quicken reruns.
+
+Another idea, not thematized by this paper, is to use more resilient paths, which ensure a minimum distance between trains, enabling more reusing of previous paths, when reruns happen.  
+
+Other than that, all ideas which limit grounding and solving are worth pursuing and applicable to Flatland as long as they are applicable to graph structures.
+
+% \section{Personal observations}
+% In order to prioritize the malfunctions specific study, I choose to be rather brief with my overall introduction to flatland, as was also requested for the presentation

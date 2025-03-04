@@ -1,23 +1,6 @@
 
 \section{Solutions}
 Every encoding below uses an estimate of the horizon as window for its computations, which is passed from the flatland environments.
-\color{green}
-\subsection{Definitions}
-To not reiterate the descriptions of the example files we are using for our properly-structured solution, I will be describing it here. While our solution is graph-based; it should be valid for other approaches. The respective files are:
-\begin{itemize}
-	\item  \textbf{input.lp} File that generates the base problem representation (a graph or other); with no choice rules.
-	\item  \textbf{path.lp} File that uses choice rules to determine the path.
-	\item  \textbf{output.lp} File that deduces, given the elected path, which action should be followed by each train; with no choice rules.
-	\item  \textbf{malfunctions.lp} File that loads (selectively, according to the timestamp) and saves upon malfunction. Also where path implications from a malfunction should be deduced; with no choice rules.
-\end{itemize}
-\color{black} \color{gray} I would get rid of this. I think our structure is not important, as it adds nothing to the execution, for the order of lines does not matter. \color{black}
-\color{blue}
-\begin{itemize}
-	\item make small section for it
-	\item flatland and action saving and state machine problems
-\end{itemize}
-\color{black}
-
 
 \subsection{Graph}
 \noindent \textbf{Motivation} The basic concept is to convert Flatland instances into an abstract graph representation. The main difficulty lies therein, that in Flatland cells are not the only thing constraining movement, but additionally a direction needs to either be tracked as additional information, or be merged into the graph. For this encoding we chose the second approach. To ensure a graph-like structure vertices are not defined by just a cell, but also from where it was reached. This leads to a graph with directed edges and paths modelling the environment. This approach serves as a baseline for comparison, and a foundation to build upon with the other encodings.\\

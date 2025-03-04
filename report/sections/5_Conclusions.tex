@@ -34,9 +34,9 @@ Our assumption that the naive approach would perform worse than the graph approa
 But the assumption, of the incremental outperforming the other approaches did hold. It shows shorter runtimes over all instances, also requiring less reruns, as it's solutions always use the optimal horizon. The window is shrinking on every rerun and only extended if required. One can spot the reruns, where more timesteps were necessary, by looking at the peaks in Figure \ref{fig:medium_instance}.
 
 \section{Fazit}
-I out testing environment the hybrid approach of using the estimate and incrementing the timesteps, when required, outperformed the others on all instances. This illustrates the advantages and the ability of an incremental approach to build on and adapt previous knowledge and shows a problem for which such an approach is a good fit. It did also as a side benefit, compute shorter paths (thus needing fewer reruns), as it finds timestep optimal solutions.
+I out testing environment the hybrid approach of using the estimate and incrementing the timesteps, when required, outperformed the others on all instances. This illustrates the advantages and the ability of an incremental approach to build on and adapt previous knowledge and shows a problem for which such an approach is a good fit. An expansion on the incremental approach, would be, as the map does not change to pass the grounded map and train space, to new runs and only add new assumptions on a malfunction.
 
-Optimality, would be a good topic for further study, as enforcing optimality (e.g. trains arrive with as much time left as possible) might further reduce, the necessary window and quicken reruns.
+As a side benefit, incremental compute shorter paths (thus needing fewer reruns), as it finds timestep optimal solutions. Optimality, would be a good topic for further study, as enforcing optimality (e.g. trains arrive with as much time left as possible) might further reduce, the necessary window and quicken reruns.
 
 Another idea, not thematized by this paper, is to use more resilient paths, which ensure a minimum distance between trains, enabling more reusing of previous paths, when reruns happen.  
 

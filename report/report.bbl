@@ -1,0 +1,35 @@
+\begin{thebibliography}{}
+
+\bibitem[Gómez et~al., 2020]{MAPF}
+Gómez, R.~N., Hernández, C., and Baier, J.~A. (2020).
+\newblock Solving sum-of-costs multi-agent pathfinding with answer-set
+  programming.
+\newblock {\em Proceedings of the AAAI Conference on Artificial Intelligence},
+  34(06):9867--9874.
+
+\bibitem[Kaminski et~al., 2017]{incr}
+Kaminski, R., Schaub, T., and Wanko, P. (2017).
+\newblock A tutorial on hybrid answer set solving with clingo.
+\newblock {\em Reasoning Web. Semantic Interoperability on the Web: 13th
+  International Summer School 2017, London, UK, July 7-11, 2017, Tutorial
+  Lectures 13}, pages 167--203.
+
+\bibitem[Murphy, 2025a]{flatland}
+Murphy, R.~K. (2025a).
+\newblock Flatland.
+\newblock \url{https://github.com/krr-up/flatland}.
+\newblock Accessed: 01.03.2025.
+
+\bibitem[Murphy, 2025b]{malfunction_issue}
+Murphy, R.~K. (2025b).
+\newblock krr-up issue \#30.
+\newblock \url{https://github.com/krr-up/flatland/commits/malfunctions}.
+\newblock Accessed: 04.03.2025.
+
+\bibitem[Murphy, 2025c]{malfunction_branch}
+Murphy, R.~K. (2025c).
+\newblock Malfunctions commit branch.
+\newblock \url{https://github.com/krr-up/flatland/commits/malfunctions}.
+\newblock Accessed: 01.03.2025.
+
+\end{thebibliography}

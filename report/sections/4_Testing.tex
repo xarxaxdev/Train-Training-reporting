@@ -13,32 +13,3 @@ To ensure comparability, all domains above specify that no more than one rail ma
 
 \subsection{Benchmarking}
 All Benchmarks were run on cores of an AMD Ryzen 5 7600X (5.45GHz) with 4800Mhz RAM. The instances were run continuously\color{red}uninterrupted?\color{black}, with one instance not being allowed to run for more than one hour. The upper bound of memory required per instance was 14 GiB.\footnote{This was achieved by modifying solve.py to return all Clingo stats and create a CSV entry of those and the environment stats after every run.}
-
-% \begin{figure}	
-% 	\begin{minipage}{.41\textwidth}
-% 		\begin{subfigure}{\textwidth}
-% 			\centering
-% 			\includegraphics[width=0.48\textwidth]{dense/dense_0_1}
-% 			\caption{Dense instance, using a 24x24 grid, where 20 trains must travel across 3 cities.}
-% 			\label{dense_0_1}
-% 		\end{subfigure}
-% 	\hfill
-% 		\begin{subfigure}{\textwidth}
-% 			\centering
-% 			\includegraphics[width=\textwidth]{medium/medium_0_1}
-% 			\caption{Medium instance, using a 50x50 grid, where 10 trains must travel across 5 cities.}
-% 			\label{medium_0_1}
-% 		\end{subfigure}
-% 	\end{minipage}
-% 	\hfill
-% 	\begin{minipage}{.49\textwidth}
-% 				\begin{subfigure}{\textwidth}
-% 		\centering
-% 		\includegraphics[width=\textwidth]{sparse/sparse_0_1}
-% 		\caption{Sparse instance, using a 60x60 grid, where 6 trains must travel across 6 cities.}
-% 		\label{sparse_0_1}
-% 				\end{subfigure}
-% 	\end{minipage}
-% 	\caption{The 3 types of configurations used for our experimentation, put side-by-side in order to get an idea of the scale. The full list can be found at \cite{instance_folder}}
-% 	\label{sparse_medium_dense}
-% \end{figure}

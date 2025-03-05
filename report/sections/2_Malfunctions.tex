@@ -1,13 +1,3 @@
-\subsection{Edge cases}
-
-\subsubsection {Collision} Without resilience (trains keeping space in between them) a malfunctioning train might have multiple trains crashing into it. These trains then fail their action as well.
-
-\subsubsection {Trying to use unmatching actions with prior to a malfunction} Even though the simulation may reach the end successfully (with all trains reaching a destination timely) a solving run will be considered invalid if the actions are incompatible with the originally chosen
-
-\subsubsection {Having to delay an end} Due to malfunctions, a simulation may not be able to finish, so both the global timestamps and the end(Agent, Position, Time) may require a certain amount of delay before being finished.
-
-\subsection {Auto Spawning} Depending on the interface, malfunctions off map, might lead to them automatically spawning, when the malfunction is done. (For more info see \cite{malfunction_issue})
-
 \section{Core malfunctions analysis / particularities}
 \subsection{Implications on Encodings}
 

@@ -1,5 +1,4 @@
 \section{Introduction to Flatland and Malfunction mechanics}
-\color{red} WE MENTION IN THIS SECTION ONLY THE THINGS THAT ARE UNIVERSALLY TRUE FOR FLATLAND \color{black}
 \subsection{Flatland}
 Flatland\cite{flatland} is the framework this report researches on. To introduce it, let us just quote from the official repository:
 \begin{quote}
@@ -26,9 +25,9 @@ For the purpose of forwarding atoms, the \texttt{save/1} and \texttt{load/1} ato
 \subsection{Edge cases}
 A malfunction at time T, with duration D implies the train must wait during D turns (or if it is unspawned, it must remain that way), from turn T onward. To be very precise: the action performed in T-1 will be completed (so a change of coordinates may happen between T-1 and T) but the action that is started at T must be `wait`.
 
-\subsubsection {Trying to use unmatching actions with prior to a malfunction} Even though the simulation may reach the end succesfully( with all trains reaching a destination timely) a solving run will be considered invalid if the actions are incompatible with the originally chosen
+\subsubsection {Trying to use unmatching actions with prior to a malfunction} Even though the simulation may reach the end successfully (with all trains reaching a destination timely) a solving run will be considered invalid if the actions are incompatible with the originally chosen
 
-\subsubsection {Having to delay an end} Due to malfunctions, a simulation may not be able to finish, so both the global timestamps and the end(Agent,Postiton,Time) may require a certain amount of delay before being finished.
+\subsubsection {Having to delay an end} Due to malfunctions, a simulation may not be able to finish, so both the global timestamps and the end(Agent, Position, Time) may require a certain amount of delay before being finished.
 
 % TODO
 % make small section for it

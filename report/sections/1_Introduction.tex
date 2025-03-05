@@ -20,7 +20,7 @@ Any encoding called on a malfunction would have to:
 
 Our interface, as is provided by \cite{flatland}, allows for up to two encodings, to solve malfunctions. A mandatory \textbf{primary} encoding, which is run, when the simulation starts, to compute the initial plan. It receives, the instance information (map information). The \textbf{secondary} encoding is optional and if specified run after every malfunction, to compute a new plan. It receives only forwarded atoms. Should no secondary encoding be specified, the \textbf{primary} is used instead.
 
-For the purpose of forwarding atoms, the \texttt{save/1} and \texttt{load/1} atoms were added during the semester\cite{malfunction_branch}. They are unary predicates, and \texttt{save} is solely dependent on the previous runs. An alternative would have been a binary time-dependant version, where all previous information is combined with the timesteps it was forwarded at, always receiving all previously saved information. \color{red} but the unary predicate was chosen for more flexibility.\color{black}
+For the purpose of forwarding atoms, the \texttt{save/1} and \texttt{load/1} atoms were added during the semester\cite{malfunction_branch}. They are unary predicates, and \texttt{load} is solely dependent on the previous runs. An alternative would have been a binary time-dependant version, where all previous information is combined with the timesteps it was forwarded at, always receiving all previously saved information. Nonetheless, the unary predicate was chosen for more flexibility.
 
 \subsection{Edge cases}
 

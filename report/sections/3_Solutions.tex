@@ -84,7 +84,7 @@ This required work on the repository side, where \textit{Clingo} is called. Sinc
 
 Next the encoding was separated into three parts. A \texttt{base} program, which would run always. A \texttt{step} program, which would only be called if necessary and a \texttt{check}, which contains integrity constraints, which need to be checked for the entire program and not just parts of it. The graph generation and pathfinding up to the first horizon was moved to the \texttt{base} program. Then the same pathfinding is implemented for the \texttt{step} where it only grounds one step at a time. Lastly the goal condition of every agent reaching its goal, was implemented in the \texttt{check} part of the program, which is grounded before every solving and removed afterwards.
 
-Representationwise, It is an extension of the graph approach and uses the same building and passing of the graph.\\
+Representation wise, It is an extension of the graph approach and uses the same building and passing of the graph.\\
 
 \noindent \textbf{Implications} As it solves over and over, this encoding should perform worse in the case of malfunctions, which require the extension of the horizon (additional timesteps).
 

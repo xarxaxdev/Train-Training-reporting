@@ -1,6 +1,6 @@
 % - incremental
 \section{Incremental}
-\begin{frame}
+\begin{frame}{Concept}
     \begin{minipage}{0.5\textwidth}
         \begin{tikzpicture}
 
@@ -40,27 +40,30 @@
     \end{minipage}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Split}
     \begin{minipage}{0.5\textwidth}
-        \texttt{base}
-        \begin{itemize}
-            \item input conversion
-            \item malfunction conversion
-            \item pathfinding
-        \end{itemize}
+        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=southwest, boxrule=0.5mm]
+            \texttt{base}
+            \begin{itemize}
+                \item input conversion
+                \item malfunction conversion
+                \item pathfinding
+            \end{itemize}
+        \end{tcolorbox}
     \end{minipage}%
     \begin{minipage}{0.5\textwidth}
-        \begin{minipage}{\textwidth}
+        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=northwest, boxrule=0.5mm]
             \texttt{step}
             \begin{itemize}
                 \item pathfinding (stepwise)
             \end{itemize}
-        \end{minipage}
-        \begin{minipage}{\textwidth}
+        \end{tcolorbox}
+        \vspace{0.5cm} % Add space between step and check
+        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=southeast, boxrule=0.5mm]
             \texttt{check}
             \begin{itemize}
                 \item goal condition
             \end{itemize}
-        \end{minipage}
+        \end{tcolorbox}
     \end{minipage}
 \end{frame}

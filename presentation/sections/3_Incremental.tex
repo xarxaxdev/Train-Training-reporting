@@ -42,24 +42,24 @@
 
 \begin{frame}{Split}
     \begin{minipage}{0.5\textwidth}
-        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=southwest, boxrule=0.5mm]
+        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=all, boxrule=0.5mm]
             \texttt{base}
             \begin{itemize}
                 \item input conversion
                 \item malfunction conversion
-                \item pathfinding
+                \item pathfinding up to horizon
             \end{itemize}
+        \vspace{0.156cm} % Add space between step and check
         \end{tcolorbox}
     \end{minipage}%
     \begin{minipage}{0.5\textwidth}
-        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=northwest, boxrule=0.5mm]
+        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=all, boxrule=0.5mm]
             \texttt{step}
             \begin{itemize}
                 \item pathfinding (stepwise)
             \end{itemize}
         \end{tcolorbox}
-        \vspace{0.5cm} % Add space between step and check
-        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=southeast, boxrule=0.5mm]
+        \begin{tcolorbox}[colframe=black, colback=white, sharp corners=all, boxrule=0.5mm]
             \texttt{check}
             \begin{itemize}
                 \item goal condition

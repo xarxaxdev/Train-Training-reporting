@@ -21,9 +21,9 @@
 	\frametitle{Malfunction implications: Modularity}
 	\textbf{Modularity in Clingo} We can selectively ground/load
 		\begin{itemize}
+		\item \textbf{Calculate complex representations only once} 
+		\item \textbf{Generating vs Reading} We study this.
 		\item \textbf{Check statement-specific cost}  By selectively loading
-		\item \textbf{Generating vs Reading} We study this 
-		\item \textbf{Early-Grounding and forwarding} Outside our project  
 	\end{itemize}
 \end{frame}
 
@@ -32,14 +32,50 @@
 	\frametitle{Malfunction implications: Window of grounding}
 		\textbf{Window-focused representation} 
 	\begin{itemize}
-		\item \textbf{Ignore prior timestamps to last malfunction} 
 		\item \textbf{Dynamically push back horizons} 
+		\item \textbf{Ignore prior timestamps to last malfunction} 
 		\item \textbf{Currently disallowed} Flatland requires previous actions to match current solution
 		
 	\end{itemize}
 \end{frame}
 
 \section{Implementations}
+
+\begin{frame}{Implementations 1 \& 2: Directed graph}
+	\begin{minipage}{0.5\textwidth}
+		\begin{tcolorbox}[colframe=black, colback=white, sharp corners=all, boxrule=0.5mm]
+			\texttt{input}
+			\begin{itemize}
+				\item Generate graph
+			\end{itemize}
+
+		\end{tcolorbox}
+				\begin{tcolorbox}[colframe=black, colback=white, sharp corners=all, boxrule=0.5mm]
+			\texttt{path}
+			\begin{itemize}
+				\item Progress choice rules
+			\end{itemize}
+
+		\end{tcolorbox}
+		
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\begin{tcolorbox}[colframe=black, colback=white, sharp corners=all, boxrule=0.5mm]
+			\texttt{output}
+			\begin{itemize}
+				\item translation to actions
+				\item Save vertex+edges or cell 
+			\end{itemize}
+		\end{tcolorbox}
+		\begin{tcolorbox}[colframe=black, colback=white, sharp corners=all, boxrule=0.5mm]
+			\texttt{malfunctions}
+			\begin{itemize}
+				\item load graph/cell, 
+				\item enforce (and save) malfunction turns
+			\end{itemize}
+		\end{tcolorbox}
+	\end{minipage}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Implementations 1 \& 2: Directed graph}
@@ -50,4 +86,7 @@
 		\item \textbf{Test Staticly reading vs Generating}  Saving our graph vs cells 		
 	\end{itemize}
 \end{frame}
+
+
+
 

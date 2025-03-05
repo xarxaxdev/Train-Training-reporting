@@ -83,12 +83,9 @@ Nonetheless, this approach should be well suited, for this problem. As instead o
 This required work on the repository side, where \textit{Clingo} is called. Since the repository calls the Python \textit{Clingo} API, it is not possible to call python from \textit{Clingo} again. So Felix needed to modify the given call in api.py. The result can be seen in our GitHub Repository and follows closely the implementation in \cite{incr}.
 
 Next the encoding was separated into three parts. A \texttt{base} program, which would run always. A \texttt{step} program, which would only be called if necessary and a \texttt{check}, which contains integrity constraints, which need to be checked for the entire program and not just parts of it. The graph generation and pathfinding up to the first horizon was moved to the \texttt{base} program. Then the same pathfinding is implemented for the \texttt{step} where it only grounds one step at a time. Lastly the goal condition of every agent reaching its goal, was implemented in the \texttt{check} part of the program, which is grounded before every solving and removed afterwards.
-\color{red} Then a stepwise pathfinding (mimicking the other) is implemented for the step and grounds one step at a time. -> WHAT \color{black} \color{green} Is it better now? \color{black}
 
 Representation wise, It is an extension of the graph approach and uses the same building and passing of the graph.\\
 
-\noindent \textbf{Implications} As it solves over and over, this encoding should perform worse in some timesteps, where the adding of additional timesteps, is required.
+\noindent \textbf{Implications} As it solves over and over, this encoding should perform worse in the case of malfunctions, which require extension of the horizon (additional timesteps).
 
 Other than that it should, outperform the other encodings. This should hold especially for environments dense in malfunctions, where the worst case assumption should add way to many additional timesteps.
-
-\color{red} Should it not perform worse when e.g.  very disjointed windows (start,end) happen? As a problem becomes less NP and more individual problems, it should perform worse \color{black} \color{green} Confusion \color{black}

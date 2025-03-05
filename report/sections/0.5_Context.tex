@@ -1,28 +1,13 @@
 \section{Introduction}
-The problem of train-scheduling attempts to model and find valid pathing for a series of train agents that share the same tracks and cannot collide. 
 
-In particular, the problem modeled is a variant of Multi-Agent Pathfinding. To quote from Wikipedia:
-\begin{quote}
-\emph{The problem of Multi-Agent Pathfinding (MAPF) is an instance of multi-agent planning and consists in the computation of collision-free paths for a group of agents from their location to an assigned target. It is an optimization problem, since the aim is to find those paths that optimize a given objective function, usually defined as the number of time steps until all agents reach their goal cells. MAPF is the multi-agent generalization of the pathfinding problem, and it is closely related to the shortest path problem in the context of graph theory.}
-\end{quote}
+This report is a product of the course Railway Scheduling at Potsdam University. It focuses on finding timetables in a Railway Environment. The goal of the course is stated as `pushing the boundary of Flatland`. In particular, the goal of our group this semester was to explore further what concepts were necessary or useful regarding malfunctions within the Flatland Framework.
 
+In this report, a brief introduction to Flatland is made and the particularities surrounding the usage of malfunctions are highlighted. Afterwards we will propose solutions (which are our main contributions to the subject), to solve such problems, starting with a baseline and followed by two derivations. One will serve to compare reutilization and recomputation, the other will implement an incremental ASP approach.
 
-\section{Context}
+These solutions will than be tested against selected instances, which we deemed interesting followed by a short evaluation, a conclusion and an outlook over the field.
 
-Subject context blablabla
-
-\color{green} Probably unnecessary. \color{black}
-
-
-The goal of the course is stated as `pushing the boundary of Flatland`.In particular, the goal of our group this semester was to explore further what concepts were necessary or useful regarding malfunctions within the Flatland Framework. In this report, a brief introduction to Flatland is made and the particularities surrounding the usage of malfunctions are highlighted. Then the sets of environments that were found the most interesting for the sake of benchmarking are explained, followed by the solutions that we decided to test for these environments. A comparison is drawn between using solutions that are more reutilization friendly than others. Finally, the results are summarized and  we conclude that approaches with an incremental approach on time should be favored over others, and that no relevant difference exists between reading the map representation and calculating it in runtime.
 \color{red}
 Our contribution is a series of rather challenging and varied test instances+  
 Solutions that would work correctly under any malfunction environment
 \color{black}
-
-The goal of the course is stated as `pushing the boundary of Flatland`.In particular, the goal of our group this semester was to explore further what concepts were necessary or useful regarding malfunctions within the Flatland Framework. In this report, a brief introduction to Flatland is made and the particularities surrounding the usage of malfunctions are highlighted. Then the sets of environments that were found the most interesting for the sake of benchmarking are explained, followed by the solutions that we decided to test for these environments. A comparison is drawn between using solutions that are more reutilization friendly than others. Finally, the results are summarized and  we conclude 
-\color{green} BLABLALABLBA CONCLUSIONS \color{black}
-\keywords{ASP \and Multi-Agent Pathfinding \and Resilience planning.}
-\end{abstract}
-
-\color{green} To long. This should be the introduction. With a little extension and the abstract should be shorter. \color{black}
+\color{green} Is it fine now? \color{black}

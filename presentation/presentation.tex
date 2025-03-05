@@ -1,4 +1,5 @@
 \documentclass{beamer}
+\usepackage{import}
 %Information to be included in the title page:
 \title{Train-training}
 \subtitle{Malfunctions}
@@ -17,58 +18,10 @@
 \end{frame} 
 
 
-\section{Changes during development}
-\subsection{Save \& load}
-\begin{frame}
-	%\frametitle{1  Malfunctions particularities}
-	\frametitle{Save \& load}
-	
-	ADD CODE PIC WITH SAVE/LOAD
-	
-	Maybe add a small schema  showing the happens over the timeline when malfunctions happen, e.g. How are we loading the at/3.
-	\begin{enumerate}
-	\item{As should be known, we can save/load, typically for saving train progress before a malfunction and initial problem clauses} 
-	\item{Implication: allows for benchmarking particular initial represenetations parts (eg. loading only edges, or the trackpart decoding), May help against lack of modularity in cligo}
-	\item{Single argument both save/load: Intended to save full atoms, your solution does not have to necessarily use time T(although it is what makes the most sense). }
-	\item{Same seeed does not generated the same map. }
-	
-	 
-\end{enumerate}
-\end{frame}
+\import{sections/}{1.tex}
+\import{sections/}{2.tex}
+\import{sections/}{3.tex}
+\import{sections/}{4.tex}
 
-
-\section{Experimentation setup}
-
-\begin{frame}
-	\frametitle{Environments}
-	What base configurations are cool
-	\begin{enumerate}
-		\item{baseline} 
-		\item{train-dense} 
-	\end{enumerate}
-	
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Solutions}
-	What solutions implementations we want to evaluate:
-	malfunction in the same file or not, etc 
-	\begin{enumerate}
-		\item{Graph with directed vertex and edges} 
-		\item{Other} 
-	\end{enumerate}
-	
-\end{frame}
-
-
-\section{Results}
-
-\subsection{Result table}
-\begin{frame}
-	\frametitle{\thesection.\thesubsection   \secname : \subsecname}
-	Tabelle solutions X environments
-
-\end{frame}
 
 \end{document}

@@ -3,3 +3,51 @@
 % - edge cases
 % - implications (window, modularity)
 % - naive implementation
+\section{Malfunctions implications}
+
+\begin{frame}
+	\frametitle{Malfunction implications: Edge cases}
+		\begin{itemize}
+		\item \textbf{Collisions} Train A malfunctioning may affect a Train B.
+		\item \textbf{Auto spawning}  Off-map malfunctions may force trains to spawn
+		\item \textbf{Some state-related complications}  
+	\end{itemize}
+	
+	
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Malfunction implications: Modularity}
+	\textbf{Modularity in Clingo} We can selectively ground/load
+		\begin{itemize}
+		\item \textbf{Check statement-specific cost}  By selectively loading
+		\item \textbf{Generating vs Reading} We study this 
+		\item \textbf{Early-Grounding and forwarding} Outside our project  
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Malfunction implications: Window of grounding}
+		\textbf{Window-focused representation} 
+	\begin{itemize}
+		\item \textbf{Ignore prior timestamps to last malfunction} 
+		\item \textbf{Dynamically push back horizons} 
+		\item \textbf{Currently disallowed} Flatland requires previous actions to match current solution
+		
+	\end{itemize}
+\end{frame}
+
+\section{Implementations}
+
+\begin{frame}
+	\frametitle{Implementations 1 \& 2: Directed graph}
+	\textbf{Naive vs. Proper setup} 
+	\begin{itemize}
+		\item \textbf{Each vertex holds its coordinates and the adjacent vertexes} 
+		\item \textbf{Implements shared resources} To prevent sharing edges/vertex. 
+		\item \textbf{Test Staticly reading vs Generating}  Saving our graph vs cells 		
+	\end{itemize}
+\end{frame}
+
